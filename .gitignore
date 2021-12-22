@@ -1,0 +1,17 @@
+# OS metadata
+.DS_Store
+
+# Idea
+.idea
+
+# Robot results and reports
+results
+results*
+__pycache__
+.pabotsuitenames
+*.log
+*.log.*
+selenium.log.lck
+log.html
+report.html
+output.xml

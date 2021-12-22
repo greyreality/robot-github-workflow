@@ -1,0 +1,70 @@
+name: RobotCI
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, labeled, reopened, synchronize]
+  workflow_dispatch:
+jobs:
+  run-rflint:
+    if: github.event_name == 'pull_request' && github.event.label.name != 'ready_to_test'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install libs
+        run: |
+          python --version
+          pip install robotframework-lint
+      - name: Run rflint
+        run: |
+          mkdir rflint
+          rflint Tests/Amazon.robot >> rflint/result.txt
+          ls -la
+      - name: Upload rflint result to PR artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: rflint
+          path: rflint
+      - uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Find rflint report in artifacts on PR Aсtion Summary tab  :sparkles:'
+            })
+  run-robot:
+    if: github.event.label.name == 'ready_to_test'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install robot libs and chromedriver
+        run: |
+          python -m pip install -r python3_requirements.txt
+          pip list
+          set -ex
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install ./google-chrome-stable_current_amd64.deb
+          chromedriver --version
+      - name: Run robot test
+        run: |
+          mkdir robot_results
+          robot -d robot_results Tests/Amazon.robot
+          ls -la
+      - name: Upload robot_results to PR artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: robot_results
+          path: robot_results
+      - uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Find robot_results in artifacts on PR Aсtion Summary tab  :robot:'
+            })
