@@ -9,7 +9,7 @@ Library  SeleniumLibrary
 
 *** Test Cases ***
 Open and close browser
-    [Documentation]  This is some basic info about the test which contains many and many many and many many and many many and many many and many letters
+    [Documentation]  This is some basic info about the test which contains many and many many and many many and many many and many many letters
     [Tags]  Smoke
     Open Browser  http://www.amazon.com  headlesschrome
     Close Browser
