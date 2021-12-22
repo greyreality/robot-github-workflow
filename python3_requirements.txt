@@ -1,0 +1,9 @@
+# create virtual env via python3
+# python3 -m virtualenv .env_python3
+# source .env_python3/bin/activate
+# remove libs from virtual env, install lib for connecting to DB and then other libs by commands:
+# pip freeze | xargs pip uninstall -y
+# python -m pip install -r python3_requirements.txt
+robotframework
+robotframework-lint
+robotframework-seleniumlibrary
