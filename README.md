@@ -12,4 +12,4 @@ create a PR
 Pr will be tested by Robot lint
 check test results in PR comments
 ### Celebrate
-![](https://github.com/greyreality/robot-github-workflow/blob/main/files/celebration.gif)
+![](https://github.com/greyreality/robot-github-workflow/blob/master/files/celebration.gif)
