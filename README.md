@@ -8,8 +8,8 @@ To setup these Github workflow and create an example PR to show the result
    - Report result to PR comment 
 
 ### How to use:
-create a PR
-Pr will be tested by Robot lint
-check test results in PR comments
+1. create a PR
+2. Pr will be tested by Robot lint
+3. check test results in PR comments
 ### Celebrate
 ![](https://github.com/greyreality/robot-github-workflow/blob/master/files/celebration.gif)
